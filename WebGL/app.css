@@ -46,6 +46,17 @@ div {
     z-index: -1;
 }
 
+input {
+
+}
+
+#chatInput {
+    outline: none;
+    border-style: none;
+    background: rgba(0,0,0,0.5);
+    color: #FFFFFF;
+}
+
 span {
     font-style: italic;
 }

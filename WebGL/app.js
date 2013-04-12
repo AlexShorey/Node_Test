@@ -25,6 +25,7 @@ var UpdateHook = (function () {
     };
     return UpdateHook;
 })();
+
 var ThreeObj = (function () {
     function ThreeObj() {
         var _this = this;
@@ -117,7 +118,7 @@ document.writeln("<script src='WebGL/CSS3D_Polyfill.js'></script>");
 var hook;
 var threeObj;
 //var tgt;
-window.onload = function () {
+function App_onload () {
     /*
     include dependencies exclusively from javascript.
     Doesn't work yet because objects are declared before
@@ -152,6 +153,7 @@ window.onload = function () {
     };
     updateElements();
 };
+
 function updateElements() {
     //tgt.setPos(threeObj.spaceToScreen(threeObj.flock.boids[100].mesh.position.clone()));
     //tgt.setPosM(threeObj.flock.boids[0].mesh.matrix);
