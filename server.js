@@ -48,23 +48,50 @@ function start(){
 	console.log("server started");
 }
 
-function startChat(){
-	function onConnect(socket){
 
-	}
+//socket.emit("message", {message: "something"});
+
+function startChat(){
+
+	//var logToPush = "";
 
 	var io = socketIO.listen(httpServer);
 
+
 	io.sockets.on('connection', function(socket){
-		socket.emit("initSockets", {hello: "world"});
-		socket.on("buttonClick", function(data){
-			console.log("button data: " + data.buttonDat);
-			socket.emit("message", {message: "something"});
+		
+		socket.join("onlyRoom");
+
+		//socket.emit("chatPush", logToPush);
+
+		socket.on("Username", function(data){
+			console.log("Registering Username to " + socket.id + ": " + data);
+			clients.push({id: socket.id, Username: data});
 		});
-		socket.on("message", function(data){
-			console.log("chat message: " + data);
+
+		socket.on("Message", function(data){
+			for(i = 0; i < clients.length; i++){
+				if(clients[i].id === socket.id && data.length < 400){
+					//console.log("Message from " + clients[i].Username + ": " + data);
+					chatLog.push({logEntry: clients[i].Username + ": " + data + "<br>"});
+					console.log("Entry: " + chatLog[chatLog.length-1].logEntry);
+					logToPush = "";
+					//for(i = chatLog.length-1; i > 0; i--){
+					//	logToPush += chatLog[i].logEntry; 
+					//}
+					for(i = 0; i < chatLog.length; i++){
+						logToPush += chatLog[i].logEntry;
+					}
+					io.sockets.in("onlyRoom").emit("chatPush", logToPush);
+					//socket.broadcast.to('onlyRoom').emit("chatPush", logToPush);
+				}
+			}
 		});
 	});
+}
+
+function pushChat(data) {
+
 }
 
 function handleMessage(msg){

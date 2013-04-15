@@ -3,12 +3,13 @@
 ///<reference path='Flock.ts' />
 ///<reference path='TargetReticle.ts' />
 var UpdateHook = (function () {
-    function UpdateHook(e) {
-        this.element = e;
+    function UpdateHook() {
+        this.element = document.getElementById("content");
         this.element.innerHTML += "The time is: ";
         this.span = document.createElement('span');
         this.element.appendChild(this.span);
         this.span.innerText = new Date().toUTCString();
+        this.start();
     }
     UpdateHook.prototype.update = function () {
         var _this = this;
@@ -115,30 +116,18 @@ document.writeln("<script src='WebGL/three.min.js'></script>");
 document.writeln("<script src='WebGL/Flock.js'></script>");
 document.writeln("<script src='WebGL/CSS3D_Polyfill.js'></script>");
 */
+
+
 var hook;
 var threeObj;
 //var tgt;
 function App_onload () {
-    /*
-    include dependencies exclusively from javascript.
-    Doesn't work yet because objects are declared before
-    resources are referenced.
-    
-    FIXED: see above. document.writeln(""); can accomplish references
-    before object instantiation occurs.
-    
-    var ref = <HTMLScriptElement>document.createElement("script");
-    ref.type = 'text/javascript';
-    ref.src = "<script src='TargetReticle.js'></script>";
-    document.body.appendChild(ref);
-    */
-    var el = document.getElementById('content');
-    hook = new UpdateHook(el);
-    hook.start();
+
+    hook = new UpdateHook();
+
     threeObj = new ThreeObj();
     threeObj.draw();
-    //tgt = new TargetReticle(threeObj.camera);
-    //set global even subscribers
+
     document.onmousedown = function (e) {
         return mouseDown(e);
     };
@@ -151,6 +140,7 @@ function App_onload () {
     window.onresize = function (e) {
         return windowResize(e);
     };
+
     updateElements();
 };
 
