@@ -26,11 +26,19 @@ body {
 
 h1 {
     text-align: center;
-    
 }
 
 div {
     text-align: center;
+}
+
+#chatInputDiv{
+    background: rgba(0,0,0,0.5);
+    color: #FFFFFF;
+    position:absolute;
+    left: 5%;
+    bottom: 0;
+    width: 90%;
 }
 
 #boidTracker {
@@ -53,8 +61,9 @@ input {
 #chatInput {
     outline: none;
     border-style: none;
-    background: rgba(0,0,0,0.5);
+    background: rgba(0,0,0,0);
     color: #FFFFFF;
+    width: 100%;
 }
 
 span {

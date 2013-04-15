@@ -8,23 +8,20 @@ socket.on('connect', function() {
 });
 
 function Chat_onload(){
-	var btn = document.createElement('button');
-	btn.id  = "socketBtn";
-	btn.innerHTML = "clickMe";
-	
+	// dont forget JSON objects
+	//socket.emit('buttonClick', {buttonDat: 'some button data'});
+
+	var chatInputDiv = document.createElement('div');
+	chatInputDiv.id = "chatInputDiv";
 	
 	var chatInput = document.createElement('input');
 	chatInput.id = "chatInput";
-
-	btn.onclick = function() {
-		socket.emit('buttonClick', {buttonDat: 'some button data'});
-		socket.emit("message", chatInput.value);
-		chatInput.value = "";
-		console.log("button clicked");
+	chatInput.onkeypress = function(e, form) {
+		handleChatKey(e, form);
 	};
-
-	document.body.appendChild(btn);
-	document.body.appendChild(chatInput);
+	
+	document.body.appendChild(chatInputDiv);
+	document.getElementById("chatInputDiv").appendChild(chatInput);
 };
 
 function handleInput(message){
@@ -38,5 +35,14 @@ function handleInput(message){
 			//log message
 			break;
 		default: console.log("Message Unhandled: " + message);
+	}
+}
+
+function handleChatKey(e, form){
+	var key = e.keyCode || e.which;
+	if(key == 13){
+		console.log("enter hit");
+		socket.emit("message", chatInput.value);
+		chatInput.value = "";
 	}
 }

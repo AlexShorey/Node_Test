@@ -6,7 +6,4 @@
 	"scripts": {
 		"start": "./index.js"
 	}
-	"dependencies": {
-		"socket.io": "0.9.14"
-	}
 }
