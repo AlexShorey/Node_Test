@@ -73,7 +73,12 @@ function startChat(){
 			for(i = 0; i < clients.length; i++){
 				if(clients[i].id === socket.id && data.length < 400){
 					//console.log("Message from " + clients[i].Username + ": " + data);
-					chatLog.push({logEntry: clients[i].Username + ": " + data + "<br>"});
+					chatLog.push({logEntry: "<span style='color: rgba(255,255,255,0.5);"  + 
+														 'font-size: 16px;' +
+														 "font-weight: bold'>" + 
+											clients[i].Username + ": " + 
+											"</span>" + data + "<br>"});
+					//chatLog.push({logEntry: clients[i].Username + ": " + data + "<br>"});
 					console.log("Entry: " + chatLog[chatLog.length-1].logEntry);
 					logToPush = "";
 					//for(i = chatLog.length-1; i > 0; i--){
@@ -83,6 +88,10 @@ function startChat(){
 						logToPush += chatLog[i].logEntry;
 					}
 					io.sockets.in("onlyRoom").emit("chatPush", logToPush);
+
+					if(chatLog.length > 20){
+						chatLog.shift();
+					}
 					//socket.broadcast.to('onlyRoom').emit("chatPush", logToPush);
 				}
 			}

@@ -32,13 +32,30 @@ div {
     text-align: center;
 }
 
+#chatLogDiv{
+    position: absolute;
+    background: rgba(0,0,0,0.5);
+    color:#FFFFFF;
+    left: 5%;
+    width: 60%;
+    bottom: 32px;
+    text-align: left;
+    font-size: 14px;
+    padding-left: 5px;
+    padding-right: 5px;
+    padding-top:0px;
+    padding-bottom:0px;
+}
+
 #chatInputDiv{
     background: rgba(0,0,0,0.5);
     color: #FFFFFF;
     position:absolute;
     left: 5%;
-    bottom: 0;
-    width: 90%;
+    width: 60%;
+    bottom:5px;
+    padding-left: 5px;
+    padding-right: 5px;
 }
 
 #boidTracker {
