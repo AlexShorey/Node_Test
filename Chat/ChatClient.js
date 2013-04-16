@@ -1,48 +1,4 @@
-	// dont forget JSON objects
-	//socket.emit('buttonClick', {buttonDat: 'some button data'});
-/*
-var ChatObj = (function(){
-	function ChatObj(skt) {
-
-		var _this = this;
-		socket_ref = skt;
-		this.chatInputDiv = document.createElement('div');
-		this.chatInputDiv.id = "chatInputDiv";
-
-		this.chatInput = document.createElement('input');
-		this.chatInput.id = "chatInput";
-		this.chatInput.onkeypress = function(e, form) {
-			_this.handleChatKey(e, form);
-		}
-
-		document.body.appendChild(this.chatInputDiv);
-		chatInputDiv.appendChild(this.chatInput);
-	}
-
-	ChatObj.prototype.handleChatKey = function(e, form) {
-		this.key = e.keyCode || e.which;
-		if(this.key == 13) {
-			console.log('enter hit');
-			socket_ref.emit('message', chatInput.value);
-			this.chatInput.value = "";
-		}
-	};
-
-	ChatObj.prototype.handleInput = function(message) {
-		console.log("message: " + message);
-
-		switch(message){
-			case "Username":
-				//log username
-				break;
-			case "Message":
-				//log message
-				break;
-			default: console.log("Message Unhandled: " + message);
-		}
-	};
-})();
-*/
+//make this more modular
 
 function Chat_onload(){
 	var socket = io.connect();
@@ -117,21 +73,6 @@ function ChatObj(skt){
 			
 		}
 	};
-
-	ChatObj.prototype.handleInput = function(message) {
-		console.log("message: " + message);
-
-		switch(message){
-			case "Username":
-				//log username
-				break;
-			case "Message":
-				//log message
-				break;
-			default: console.log("Message Unhandled: " + message);
-		}
-	};
-
 	return ChatObj;
 };
 

@@ -34,10 +34,12 @@ div {
 
 #chatLogDiv{
     position: absolute;
+    overflow-y: scroll;
     background: rgba(0,0,0,0.5);
     color:#FFFFFF;
     left: 5%;
     width: 60%;
+    height: 400px;
     bottom: 32px;
     text-align: left;
     font-size: 14px;
