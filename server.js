@@ -44,7 +44,7 @@ function start(){
 			});	
 		}
 	}
-	httpServer = http.createServer(onRequest).listen(1337);
+	httpServer = http.createServer(onRequest).listen(process.env.VCAP_APP_PORT || 80);
 	console.log("server started");
 }
 
@@ -60,7 +60,9 @@ function startChat(){
 
 	io.sockets.on('connection', function(socket){
 		
-		socket.join("onlyRoom");
+		socket.join("onlyRoom", function(data){
+			pushChatLog(socket, data);
+		});
 
 		//socket.emit("chatPush", logToPush);
 
@@ -70,33 +72,39 @@ function startChat(){
 		});
 
 		socket.on("Message", function(data){
-			for(i = 0; i < clients.length; i++){
-				if(clients[i].id === socket.id && data.length < 400){
-					//console.log("Message from " + clients[i].Username + ": " + data);
-					chatLog.push({logEntry: "<span style='color: rgba(255,255,255,0.5);"  + 
-														 'font-size: 16px;' +
-														 "font-weight: bold'>" + 
-											clients[i].Username + ": " + 
-											"</span>" + data + "<br>"});
-					//chatLog.push({logEntry: clients[i].Username + ": " + data + "<br>"});
-					console.log("Entry: " + chatLog[chatLog.length-1].logEntry);
-					logToPush = "";
-					//for(i = chatLog.length-1; i > 0; i--){
-					//	logToPush += chatLog[i].logEntry; 
-					//}
-					for(i = 0; i < chatLog.length; i++){
-						logToPush += chatLog[i].logEntry;
-					}
-					io.sockets.in("onlyRoom").emit("chatPush", logToPush);
-
-					if(chatLog.length > 20){
-						chatLog.shift();
-					}
-					//socket.broadcast.to('onlyRoom').emit("chatPush", logToPush);
-				}
-			}
+			handleMessage(socket, data);
 		});
 	});
+
+	function handleMessage(socket, data){
+		for(i = 0; i < clients.length; i++){
+			if(clients[i].id === socket.id && data.length < 400){
+
+				chatLog.push({logEntry: "<span style='color: rgba(255,255,255,0.5);"  + 
+													 'font-size: 16px;' +
+													 "font-weight: bold'>" + 
+										clients[i].Username + ": " + 
+										"</span>" + data + "<br>"});
+
+				console.log("Entry: " + chatLog[chatLog.length-1].logEntry);
+				
+				logToPush = "";
+				for(i = 0; i < chatLog.length; i++){
+					logToPush += chatLog[i].logEntry;
+				}
+				io.sockets.in("onlyRoom").emit("chatPush", logToPush);
+
+				if(chatLog.length > 15){
+					chatLog.shift();
+				}
+			}
+		}
+	}
+
+	function pushChatLog(socket, data) {
+		logToPush = "";
+		//for
+	}
 }
 
 function pushChat(data) {

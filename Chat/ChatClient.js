@@ -6,8 +6,9 @@ function Chat_onload(){
 
 	socket.on('connect', function() {
 
-		socket.on("error", function(msg){
-			chatObj.chatInput.value = "Bad Username";
+		socket.on("error", function(error){
+			//chatObj.chatInput.value = "Bad Username";
+			console.log("Received Error: " + error);
 		})
 		socket.on("chatPush", function(msg){
 			console.log("############: " + msg);
