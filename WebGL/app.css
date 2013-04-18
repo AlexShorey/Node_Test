@@ -14,7 +14,6 @@
 }
 
 body {
-    position: center;
     top: 0;
     left: 0;
     margin: 0;
@@ -34,30 +33,32 @@ div {
 
 #chatLogDiv{
     position: absolute;
-    overflow-y: scroll;
     background: rgba(0,0,0,0.5);
     color:#FFFFFF;
-    left: 5%;
-    width: 60%;
-    height: 400px;
-    bottom: 32px;
+    width: 400px;
+    height: 300px;
+    top: 200px;
+    left: 200px;
     text-align: left;
+    vertical-align: bottom;
     font-size: 14px;
-    padding-left: 5px;
-    padding-right: 5px;
+    padding-left: 0px;
+    padding-right: 0px;
     padding-top:0px;
     padding-bottom:0px;
+    overflow: hidden;
 }
 
 #chatInputDiv{
     background: rgba(0,0,0,0.5);
+    position: absolute;
     color: #FFFFFF;
-    position:absolute;
-    left: 5%;
-    width: 60%;
-    bottom:5px;
-    padding-left: 5px;
-    padding-right: 5px;
+    width: 400px;
+    top: 303px;
+    padding: 0px;
+    margin: 0px;
+    left: 0%;
+    right: 0%;
 }
 
 #boidTracker {
@@ -71,6 +72,13 @@ div {
     margin: 0;
     padding: 0;
     z-index: -1;
+}
+
+p {
+    position: absolute;
+    left: 5px;
+    vertical-align: bottom;
+    bottom: 0px;
 }
 
 input {

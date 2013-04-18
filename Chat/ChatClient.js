@@ -24,15 +24,6 @@ function ChatObj(skt){
 
 	this.inputState = 0;
 
-	this.chatInputDiv = document.createElement('div');
-	this.chatInputDiv.id = "chatInputDiv";
-
-	this.chatInput = document.createElement('input');
-	this.chatInput.id = "chatInput";
-	this.chatInput.value = "Enter Username"
-	this.chatInput.onkeypress = function(e, form) {
-		_this.handleChatKey(e, form);
-	}
 
 	this.chatLogDiv = document.createElement('div');
 	this.chatLogDiv.id = "chatLogDiv";
@@ -40,17 +31,38 @@ function ChatObj(skt){
 	this.chatLog = document.createElement('p');
 	this.chatLog.id = 'chatLog';
 
+	this.chatInputDiv = document.createElement('div');
+	this.chatInputDiv.id = "chatInputDiv";
+
+	this.chatInput = document.createElement('input');
+	this.chatInput.id = "chatInput";
+	this.chatInput.value = "Enter Username";
+	this.chatInput.onkeypress = function(e, form) {
+		_this.handleChatKey(e, form);
+	};
+
 	this.chatInput.onfocus = function(e, form) {
 		if(chatInput.value == "Enter Username" || chatInput.value == "Bad Username"){
 			chatInput.value = "";
 		}
-	}
+	};
+
+	document.body.appendChild(this.chatLogDiv);
+	this.chatLogDiv.appendChild(this.chatLog);
+	//this.chatLogDiv.appendChild(this.chatInputDiv);
 
 	document.body.appendChild(this.chatInputDiv);
 	this.chatInputDiv.appendChild(this.chatInput);
 
-	document.body.appendChild(this.chatLogDiv);
-	this.chatLogDiv.appendChild(this.chatLog);
+	//this.chatInputDiv.style.height = this.chatLogDiv.style.height = this.chatLogDiv.style.height;
+	this.chatInputDiv.style.top = parseInt(window.getComputedStyle(this.chatLogDiv).getPropertyValue('top')) + 
+								  parseInt(window.getComputedStyle(this.chatLogDiv).getPropertyValue('height')) + 3 + "px";
+
+	this.chatInputDiv.style.left = parseInt(window.getComputedStyle(this.chatLogDiv).getPropertyValue('left')) + "px";
+
+	console.log(window.getComputedStyle(this.chatLogDiv).getPropertyValue('top'));
+
+	//this.chatInputDiv.style.top = (this.chatLogDiv.style.height + 290) + "px";
 
 	ChatObj.prototype.handleChatKey = function(e, form) {
 		this.key = e.keyCode || e.which;
